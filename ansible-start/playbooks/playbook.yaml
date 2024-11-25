@@ -1,0 +1,27 @@
+- name: start the nginx server
+  hosts: app
+  become: yes
+
+  tasks:
+  - name: install nginx
+    ansible.builtin.dnf:
+      name: nginx
+      state: present
+  - name: start nginx
+    ansible.builtin.service:
+      name: nginx
+      state: started
+
+- name: stop the nginx server
+  hosts: app
+  become: yes
+
+  tasks:
+  - name: stop nginx
+    ansible.builtin.service:  
+      name: nginx
+      state: stopped    
+  - name: install httpd
+    ansible.builtin.dnf:
+      name: httpd
+      state: present  
